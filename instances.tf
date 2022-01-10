@@ -25,7 +25,7 @@ resource "aws_instance" "appserver" {
     ami = data.aws_ami.ubuntu.id
     instance_type =  var.appserver_instance_type
     subnet_id = aws_subnet.subnet.id
-    vpc_security_group_ids = [aws_security_group.mincraft-sg.id]
+    vpc_security_group_ids = [aws_security_group.minecraft-sg.id]
       tags = merge(local.common_tags, {
         Name = "minecraft-appserver"
       })

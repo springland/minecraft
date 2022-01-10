@@ -32,7 +32,10 @@ resource "aws_iam_role_policy" "s3_access_policy" {
         ],
         "Resource" : [
           "arn:aws:s3:::${local.s3_bucket_name}",
-          "arn:aws:s3:::${local.s3_bucket_name}/*"
+          "arn:aws:s3:::${local.s3_bucket_name}/*",
+          "arn:aws:s3:::${local.minecraft_level_bucket_name}",
+          "arn:aws:s3:::${local.minecraft_level_bucket_name}/*"
+
         ]
       }
     ]

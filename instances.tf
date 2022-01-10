@@ -53,12 +53,30 @@ sudo bash -c "echo eula=true > /opt/minecraft/survival/eula.txt"
 sudo chown -R minecraft /opt/minecraft/survival/
 
 sudo apt -y install awscli
-aws s3 cp s3://${aws_s3_bucket.s3_bucket.id}/minecraft/config  /tmp/minecraft@.service
+sudo apt-get -y install unzip
 
+aws s3 cp s3://${aws_s3_bucket.s3_bucket.id}/minecraft/config  /tmp/minecraft@.service
 sudo cp /tmp/minecraft@.service /etc/systemd/system/minecraft@.service
+
+aws s3 cp s3://${aws_s3_bucket.s3_bucket.id}/minecraft/server_properties  /tmp/server.properties
+sudo cp /tmp/server.properties /opt/minecraft/survival/server.properties
+sudo chown minecraft:minecraft /opt/minecraft/survival/server.properties
+
+aws s3 cp s3://${aws_s3_bucket.s3_bucket.id}/minecraft/ops.json  /tmp/ops.json
+sudo cp /tmp/ops.json /opt/minecraft/survival/ops.json
+sudo chown minecraft:minecraft /opt/minecraft/survival/ops.json
+
+aws s3 cp s3://springland-minecraft-level-backup/ghoul_gang_new_era.zip /tmp/ghoul_gang_new_era.zip
+sudo unzip /tmp/ghoul_gang_new_era.zip  -d /opt/minecraft/survival/
+sudo chown -R minecraft:minecraft /opt/minecraft/survival/ghoul_gang_new_era
+sudo rm -f /opt/minecraft/survival/ghoul_gang_new_era/session.lock
+
+
+
 sudo systemctl start minecraft@survival
 sudo systemctl enable minecraft@survival
 nmap -p 25565 localhost
+
 
 EOF
 }

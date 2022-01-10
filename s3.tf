@@ -7,6 +7,7 @@ resource "aws_s3_bucket" "s3_bucket" {
 }
 
 
+
 resource "aws_s3_bucket_object" "minecraft_config" {
   bucket = aws_s3_bucket.s3_bucket.bucket
   key    = "/minecraft/config"
@@ -14,3 +15,17 @@ resource "aws_s3_bucket_object" "minecraft_config" {
 
 }
 
+
+resource "aws_s3_bucket_object" "server_properties" {
+  bucket = aws_s3_bucket.s3_bucket.bucket
+  key    = "/minecraft/server_properties"
+  source = "./server.properties"
+
+}
+
+resource "aws_s3_bucket_object" "ops_json" {
+  bucket = aws_s3_bucket.s3_bucket.bucket
+  key    = "/minecraft/ops.json"
+  source = "./ops.json"
+
+}

@@ -1,4 +1,4 @@
-resource "aws_iam_role" "s3_access_role" {
+resource "aws_iam_role" "appserver_role" {
 
   assume_role_policy = jsonencode(
     {
@@ -17,9 +17,9 @@ resource "aws_iam_role" "s3_access_role" {
     )
 }
 
-resource "aws_iam_role_policy" "s3_access_policy" {
-  name = "s3_access_policy"
-  role = aws_iam_role.s3_access_role.name
+resource "aws_iam_role_policy" "appserver_policy" {
+  name = "appserver_policy"
+  role = aws_iam_role.appserver_role.name
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
   policy = jsonencode({
@@ -37,13 +37,23 @@ resource "aws_iam_role_policy" "s3_access_policy" {
           "arn:aws:s3:::${local.minecraft_level_bucket_name}/*"
 
         ]
-      }
+      },
+        {
+            "Effect": "Allow",
+            "Action": "ec2:DescribeTags",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "route53:ChangeResourceRecordSets",
+            "Resource": "arn:aws:route53:::hostedzone/${data.aws_route53_zone.primary.zone_id}"
+        }      
     ]
   })
 }
 
 resource "aws_iam_instance_profile" "minecraft_instance_profile" {
   name = "minecraft_instance"
-  role = aws_iam_role.s3_access_role.name
+  role = aws_iam_role.appserver_role.name
 }
 

@@ -32,7 +32,7 @@ resource "aws_subnet"  "subnet" {
     cidr_block = var.subnet_cidr_block
     vpc_id = aws_vpc.vpc.id
     map_public_ip_on_launch = true
-    availability_zone = data.aws_availability_zones.available.names[0]
+    availability_zone = data.aws_availability_zones.available.names[2]
     tags =  merge( local.common_tags , {
                Name = "minecraft-subnet"
         })

@@ -27,7 +27,9 @@ resource "aws_instance" "appserver" {
     subnet_id = aws_subnet.subnet.id
     vpc_security_group_ids = [aws_security_group.minecraft-sg.id]
       tags = merge(local.common_tags, {
-        Name = "minecraft-appserver"
+        Name = "minecraft-appserver" ,
+        AUTO_DNS_NAME = "minecraft.inkuii.com",
+        AUTO_DNS_ZONE = data.aws_route53_zone.primary.zone_id
       })
 
     associate_public_ip_address = true
@@ -66,10 +68,16 @@ aws s3 cp s3://${aws_s3_bucket.s3_bucket.id}/minecraft/ops.json  /tmp/ops.json
 sudo cp /tmp/ops.json /opt/minecraft/survival/ops.json
 sudo chown minecraft:minecraft /opt/minecraft/survival/ops.json
 
+aws s3 cp s3://${aws_s3_bucket.s3_bucket.id}/minecraft/update_dns  /tmp/update_dns.sh
+chmod 755 /tmp/update_dns.sh
+sudo cp /tmp/update_dns.sh /var/lib/cloud/scripts/per-boot/
+
+
 aws s3 cp s3://springland-minecraft-level-backup/ghoul_gang_new_era.zip /tmp/ghoul_gang_new_era.zip
 sudo unzip /tmp/ghoul_gang_new_era.zip  -d /opt/minecraft/survival/
 sudo chown -R minecraft:minecraft /opt/minecraft/survival/ghoul_gang_new_era
 sudo rm -f /opt/minecraft/survival/ghoul_gang_new_era/session.lock
+
 
 
 

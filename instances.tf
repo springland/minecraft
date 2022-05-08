@@ -33,7 +33,7 @@ resource "aws_instance" "appserver" {
       })
 
     associate_public_ip_address = true
-    key_name = "minecraft-key-pair"
+    key_name = "minecraft"
     iam_instance_profile   = aws_iam_instance_profile.minecraft_instance_profile.name
     user_data = <<EOF
 #! /bin/bash
@@ -73,7 +73,7 @@ chmod 755 /tmp/update_dns.sh
 sudo cp /tmp/update_dns.sh /var/lib/cloud/scripts/per-boot/
 
 
-aws s3 cp s3://springland-minecraft-level-backup/ghoul_gang_new_era.zip /tmp/ghoul_gang_new_era.zip
+aws s3 cp s3://springland-minecraft-level-backup/gg_ne_final_20220506.zip /tmp/ghoul_gang_new_era.zip
 sudo unzip /tmp/ghoul_gang_new_era.zip  -d /opt/minecraft/survival/
 sudo chown -R minecraft:minecraft /opt/minecraft/survival/ghoul_gang_new_era
 sudo rm -f /opt/minecraft/survival/ghoul_gang_new_era/session.lock

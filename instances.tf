@@ -50,7 +50,8 @@ sudo mv jdk-17 /opt/
 sudo useradd -m -r -d /opt/minecraft minecraft
 sudo mkdir /opt/minecraft/survival
 
-sudo wget -O /opt/minecraft/survival/minecraft_server.jar https://launcher.mojang.com/v1/objects/125e5adf40c659fd3bce3e66e67a16bb49ecc1b9/server.jar
+#sudo wget -O /opt/minecraft/survival/minecraft_server.jar https://launcher.mojang.com/v1/objects/125e5adf40c659fd3bce3e66e67a16bb49ecc1b9/server.jar
+sudo wget -O /opt/minecraft/survival/minecraft_server.jar  https://launcher.mojang.com/v1/objects/e00c4052dac1d59a1188b2aa9d5a87113aaf1122/server.jar
 sudo bash -c "echo eula=true > /opt/minecraft/survival/eula.txt" 
 sudo chown -R minecraft /opt/minecraft/survival/
 

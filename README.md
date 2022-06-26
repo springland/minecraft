@@ -22,5 +22,16 @@ UserData will cp level backup from there and install it
    Let server regenerate it   
 3) backup ops.json
 
+backup current world
+1)cd /opt/minecraft/survival/
+2) zip -r /tmp/ghoul_gang_new_era.20220626.zip ghoul_gang_new_era/
+3)aws s3 cp ghoul_gang_new_era.20220626.zip s3://springland-minecraft-level-backup/ghoul_gang_new_era.20220626.zip
+
+
+
+
+
+
+
 
 

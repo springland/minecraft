@@ -57,6 +57,7 @@ sudo chown -R minecraft /opt/minecraft/survival/
 
 sudo apt -y install awscli
 sudo apt-get -y install unzip
+sudo apt-get -y install zip
 
 aws s3 cp s3://${aws_s3_bucket.s3_bucket.id}/minecraft/config  /tmp/minecraft@.service
 sudo cp /tmp/minecraft@.service /etc/systemd/system/minecraft@.service
@@ -74,7 +75,7 @@ chmod 755 /tmp/update_dns.sh
 sudo cp /tmp/update_dns.sh /var/lib/cloud/scripts/per-boot/
 
 
-aws s3 cp s3://springland-minecraft-level-backup/gg_ne_final_20220506.zip /tmp/ghoul_gang_new_era.zip
+aws s3 cp s3://springland-minecraft-level-backup/ghoul_gang_new_era.20220626.zip /tmp/ghoul_gang_new_era.zip
 sudo unzip /tmp/ghoul_gang_new_era.zip  -d /opt/minecraft/survival/
 sudo chown -R minecraft:minecraft /opt/minecraft/survival/ghoul_gang_new_era
 sudo rm -f /opt/minecraft/survival/ghoul_gang_new_era/session.lock
